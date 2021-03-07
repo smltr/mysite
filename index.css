@@ -54,12 +54,6 @@ h2 {
     100% { opacity: 0; }
 }
 
-#topMarginDiv {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    height: 35vh;
-}
-
 .textbox {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
@@ -109,3 +103,19 @@ p a {
     color: #474738;
 }
 
+@media only screen and (max-width: 70rem) {
+    .container {
+        grid-template-columns: 10vw 80vw 10vw;
+        
+    }
+
+    h1 {
+        width: 100%;
+        font-size: 50;
+    }
+    h2 {
+        width: 100%;
+        font-size: 26;
+    }
+
+}
