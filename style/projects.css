@@ -1,0 +1,52 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+div {
+    border: 1px solid black;
+}
+
+.rubber {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px, 100px, auto;
+    grid-template-areas: 
+        "header"
+        "title"
+        "content"
+    ;
+}
+
+#header {
+    width: 100%;
+    height: 200px;
+    grid-area: "header";
+}
+
+#title {
+    height: 100px;
+    width: 100%;
+    grid-area: "title";
+}
+
+#body {
+    height: auto;
+    width: 100%;
+    grid-area: "content";
+}
+
+#projects {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+    justify-content: center;
+}
+
+.project {
+    padding: 50px;
+}
