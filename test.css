@@ -1,0 +1,23 @@
+div {
+    height: 400px;
+    width: 400px;
+    background-color: gray;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-weight: 500;
+    transform: skew(10deg, 10deg);
+}
+
+.fadeOut {
+    animation: fadeOut 0.3s ease-in-out;
+    opacity: 0;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
