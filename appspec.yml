@@ -4,6 +4,10 @@ files:
   - source: /
     destination: /home/ubuntu/mysite
 hooks:
+  BeforeInstall:
+      - location: kill_server.sh.sh
+      timeout: 300
+      runas: ubuntu
   ApplicationStart:
     - location: start_server.sh
       timeout: 300

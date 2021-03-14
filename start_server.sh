@@ -1,4 +1,4 @@
-# deploy/after_install/
 #!/bin/bash
-cd /home/ubuntu/mysite
-sudo ./server
+tmux new -d -s mysite-session
+tmux send -t mysite-session cd /home/ubuntu/mysite ENTER
+tmux send -t mysite-session sudo SPACE ./server ENTER
