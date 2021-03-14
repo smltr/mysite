@@ -4,7 +4,7 @@ files:
   - source: /
     destination: /home/ubuntu/mysite
 hooks:
-  AfterInstall:
+  ApplicationStart:
     - location: start_server.sh
       timeout: 300
       runas: ubuntu
