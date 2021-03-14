@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	log.Println("listening on 8080...")
-	log.Fatal(http.ListenAndServe("0.0.0.0:8080", http.FileServer(http.Dir("site/"))))
+	log.Println("listening on 80...")
+	log.Fatal(http.ListenAndServe(":80", http.FileServer(http.Dir("site/"))))
 }
