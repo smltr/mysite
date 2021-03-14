@@ -1,3 +1,4 @@
 test.*
 command-line-arguments
 mysite
+go.mod
