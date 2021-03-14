@@ -1,4 +1,4 @@
 # deploy/before_install/
 #!/bin/bash
-pwd
+cd /home/ubuntu/mysite
 sudo ./server
