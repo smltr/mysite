@@ -31,7 +31,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           sudo apt install sshpass
-          sshpass -p ${{ secrets.PASS }} ssh ubuntu@${{ secrets.ADDRESS }}
+          sshpass -p ${{ secrets.PASS }} ssh -T ubuntu@${{ secrets.ADDRESS }}
           aws deploy create-deployment \
           --application-name CodeDeployGitHubMySite-App \
           --deployment-config-name CodeDeployDefault.OneAtATime \
