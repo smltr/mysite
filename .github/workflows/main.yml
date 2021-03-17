@@ -34,10 +34,4 @@ jobs:
           host: ${{ secrets.ADDRESS }}
           user: ubuntu
           pass: ${{ secrets.PASS }}
-          run: |
-            aws deploy create-deployment \
-            --application-name CodeDeployGitHubMySite-App \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name CodeDeployGitHubMySite-DepGrp \
-            --description "My personal site" \
-            --github-location repository=smltr/mysite,commitId=${{ github.sha }}
+          run: aws deploy create-deployment --application-name CodeDeployGitHubMySite-App --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name CodeDeployGitHubMySite-DepGrp --description "My personal site" --github-location repository=smltr/mysite,commitId=${{ github.sha }}
