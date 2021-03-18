@@ -7,10 +7,33 @@ body {
     font-family: "Source Sans Pro";
 }
 
+/*
+This is added to prevent side scroll from appearing. In order to achieve the tilted effect
+of the site, a psuedo element is added on the top and bottom. The dimensions of the psuedo element
+are calculated as follows (all units are viewport width): The overall width we need after tilting
+the psuedo element is 100. After tilting the element by 5 degrees, we can calculate the needed
+length with the information we have. 1 side of the triangle is 100, we have a 90 degree angle,
+a 5 degree angle, and are left with an 85 defree angle. After rounding, the sides come out to 100,
+101, and 9. I was not confident that using exact measurements would give a good result, so I rounded
+up (thus needing to hide the overflow). I could have made an element that was excessively large, because
+hiding the overflow would hide it anyway. I felt that this was a sloppy solution and I was interested
+in solving the problem so I did it this way. Thank you Mr. Madeksho for teaching me about triangles
+and making it so interesting.
+*/
 #content {
     overflow-x: hidden;
 }
 
+/*
+.section-left and .section-right are divs that have the top and bottom edges
+tiled by 5 degrees. section-right has an upward slope on the top edge and a downward slope
+on the bottom edge, creating a larger area on the right side of the div. section-left has
+the opposite angles, creating a larger area on the left side of the div. When placing the divs,
+alternate between left and right. For the first and last div, add classes .header and .footer
+respectively in order to keep the top and bottom sides straight.
+
+Within each .section-right and .section-left, include a .wrapper div and put content inside of that.
+*/
 .section-right, .section-left {
     margin-top: 8.75vw;
     margin-bottom: 8.75vw;
@@ -22,6 +45,10 @@ body {
     position: relative;
 }
 
+/*
+The before and after psuedo elements are what create the slanted effect on the divs.
+All of the content remains inside of the main div.
+*/
 .section-left::before, .section-left::after,
 .section-right::before, .section-right::after {
     z-index: -1;
@@ -54,15 +81,23 @@ body {
     left: -1vw;
 }
 
+
+/* 
+A .wrapper div is to be included inside of each .section-right and .section-left div. This is done
+to position the content and give margins.
+*/
 .wrapper {
     width: auto;
     height: auto;
     max-width: 1160px;
     margin-left: auto;
     margin-right: auto;
-    padding: 4em;
+    padding: 1.5em;
 }
 
+/*
+Add the #header id to the first .section- div, this will prevent the top side from being tilted.
+*/
 #header {
     width: 100%;
     height: auto;
@@ -74,6 +109,9 @@ body {
     display: none;
 }
 
+/*
+Add the .footer id to the last .section- div. This will prevent the bottom side from being tilted.
+*/
 #footer {
     background-color: #2E3747;
     margin-bottom: 0;
@@ -93,7 +131,7 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
- h1 {
+h1 {
     letter-spacing: 0.1em;
     padding-bottom: 0.5em;
     margin-bottom: 0.5em;
@@ -101,6 +139,7 @@ h1, h2, h3 {
 
 h3 {
     font-size: 0.8em;
+    margin-top: 0;
 }
 
 #header p {
@@ -132,6 +171,9 @@ p {
     padding-top: 0.25em;
 }
 
+/*
+Styling for <code>. Add each skill within its own <code> element.
+*/
 code {
     font-size: 0.9em;
     background: #333645;
@@ -145,7 +187,10 @@ code {
     display: inline-block;
 }
 
-
+/*
+The .cards div acts as the grid for all of the .card elements.
+The cards inside will wrap from left to right.
+*/
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
@@ -161,7 +206,7 @@ code {
     height: auto;
     background-color: #353849;
     border-radius: 5px;
-    padding: 0.5em 1.5em;
+    padding: 1.5em;
 }
 
 
@@ -216,10 +261,7 @@ li {
     list-style-type: none;
 }
 
-#footer a:hover {
-    border-bottom: 1px dotted #ffffff00;
-    color: #FFFFFF;
-}
+
 
 #footergrid {
     display: grid;

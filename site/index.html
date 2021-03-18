@@ -9,6 +9,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <style>
+            /*
+            This styling is included within the HTML document because of a Chrome bug
+            that causes the transitions not to work when in a separate CSS document.
+            */
             input[type="submit"] {
                 background-color: rgba(255, 255, 255, 0.025);
 
@@ -32,7 +36,7 @@
                 transition: background-color 0.4s;
             }
 
-            #footer a {
+            a {
                 border-bottom: 1px dotted #ffffff45;
                 color: #FFFFFF;
                 text-decoration: none;
@@ -43,7 +47,12 @@
                 border-bottom: 1px dotted #ffffff45;
                 color: #FFFFFF79;
                 text-decoration: none;
-                transition: border-bottom 0.2s ease-in-out;
+                transition: all 0.2s ease-in-out;
+            }
+
+            a:hover, #copyright a:hover {
+                border-bottom: 1px dotted #ffffff00;
+                color: #FFFFFF;
             }
 
         </style>
@@ -60,7 +69,16 @@
             <div class="section-right" id="aboutme">
                 <div class="wrapper">
                     <h2>About Me</h2>
-                    <p>123We gotta burn the rain forest, dump toxic waste, pollute the air, and rip up the OZONE! 'Cause maybe if we screw up this planet enough, they won't want it anymore! Eventually, you do plan to have dinosaurs on your dinosaur tour, right? Must go faster... go, go, go, go, go!
+                    <p>
+                        My name is Sam Trouy, and I am a full stack developer in Atlanta, GA.
+                        I enjoy the challenge of problem-solving and creating unique solutions.
+                        I have experience with different languages, though the longer
+                        I develop the more I've realized the importance of creative problem-solving
+                        over knowing the specifics of a language or framework. I think this has helped
+                        me to adapt to new things quickly. I am not a designer by any means, but I do enjoy
+                        both backend and frontend development. Problems that are some mix of
+                        programming and math often catch my interest the most. I do my best to keep up
+                        with new frameworks, but I also appreciate making things as simple as possible.
                     </p>
                 </div>
             </div>
@@ -76,21 +94,41 @@
                     <div class="cards">
                         <div class="card">
                             <h3>This Site</h2>
-                            <p>Must go faster. I was part of something special. So you two dig up, dig up dinosaurs? Yeah, but John, if The Pirates of the Caribbean breaks down, the pirates don’t eat the tourists. Must go faster... go, go, go, go, go! Forget the fat lady! You're obsessed with the fat lady! Drive us out of here!
+                            <p>
+                                My personal site is built with HTML, CSS and Go. I have it running on an AWS EC2 instance. 
+                                The repository is set to automatically deploy to the EC2 instance on each git push.
                             </p>
+                            <a href="https://github.com/smltr/mysite" >Repository</a>
                         </div>
                         <div class="card">
-                            <h3>This Site</h2>
-                            <p>Yes, Yes, without the oops! You're a very talented young man, with your own clever thoughts and ideas. Do you need a manager? Remind me to thank John for a lovely weekend. Hey, you know how I'm, like, always trying to save the planet? Here's my chance.
+                            <h3>Rust Engine</h2>
+                            <p>
+                                I wanted to learn a systems programming language and Rust seemed to be a great way to go. It does not
+                                have quite the widespread usage of the C family of languages, but it seemed very interesting to me, so I
+                                dove in. With Rust, I created a basic graphics engine that can take vector objects and draw them to a grid
+                                of pixels. I plan for it to eventually be a 3d engine with movement. This project was mainly for my own
+                                education and experience.
                             </p>
+                            <a href="https://github.com/smltr/rust-engine" >Repository</a>
                         </div>
                         <div class="card">
-                            <h3>This Site</h2>
-                            <p>Forget the fat lady! You're obsessed with the fat lady! Drive us out of here! Do you have any idea how long it takes those cups to decompose. You really think you can fly that thing? Checkmate... Jaguar shark! So tell me - does it really exist? They're using our own satellites against us. And the clock is ticking.</p>
+                            <h3>Ezbot</h2>
+                            <p>
+                                As you can see, I'm not the best at naming my projects. The idea for ezbot came about in late 2020
+                                with many popular products being hard to find. The bot is designed for someone who does not have development
+                                experience to be able to automate a web driver. 
+                                It has a simple instruction system that uses line breaks and indentations.
+                            </p>
+                            <a href="https://github.com/smltr/ezbot">Repository</a>
                         </div>
                         <div class="card">
-                            <h3>This Site</h2>
-                            <p>They're using our own satellites against us. And the clock is ticking. This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Must go faster. They're using our own satellites against us. And the clock is ticking. I was part of something special.</p>
+                            <h3>OverPy</h2>
+                            <p>
+                                This was a project I did when I first learned programming. It's a Python web scraping library
+                                that takes a username as an input and returns a dictionary of information with player
+                                statistics for the game Overwatch.
+                            </p>
+                            <a href="https://github.com/smltr/overpy">Repository</a>
                         </div>
                     </div>
                 </div>
@@ -119,9 +157,7 @@
                         </form>
                         <ul>
                             <li>Sam Trouy<br>Atlanta, GA, USA</li>
-                            <li>(555) 777-8888</li>
-                            <li>email@email.com</li>
-                            <li><a href="#" >github.com/smltr</a></li>
+                            <li><a href="https://github.com/smltr" >github.com/smltr</a></li>
                         </ul>
                     </div>
                     <div id="copyright">
