@@ -28,13 +28,10 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          sudo apt install sshpass
-          sshpass -p ${{ secrets.PASS }} ssh ubuntu@${{ secrets.ADDRESS }}
-          aws deploy create-deployment \
-          --application-name CodeDeployGitHubMySite-App \
-          --deployment-config-name CodeDeployDefault.OneAtATime \
-          --deployment-group-name CodeDeployGitHubMySite-DepGrp \
-          --description "My personal site" \
-          --github-location repository=smltr/mysite,commitId=${{ github.sha }}
+      - name: Run sshpass commands
+        uses: matheusvanzan/sshpass-action@v2
+        with:
+          host: ${{ secrets.ADDRESS }}
+          user: ubuntu
+          pass: ${{ secrets.PASS }}
+          run: aws deploy create-deployment --application-name CodeDeployGitHubMySite-App --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name CodeDeployGitHubMySite-DepGrp --description "My personal site" --github-location repository=smltr/mysite,commitId=${{ github.sha }}
