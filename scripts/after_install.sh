@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /home/ubuntu/mysite
 go get ./cmd
-mkdir bin
+sudo mkdir bin
 go build -o ./bin ./cmd
