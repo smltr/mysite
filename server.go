@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	http.Handle("/",  http.FileServer(http.Dir("site")))
+	http.Handle("/", http.FileServer(http.Dir("site")))
 	log.Println("Listening on port 80.....")
 	l, err := net.Listen("tcp4", ":80")
 	if err != nil {
