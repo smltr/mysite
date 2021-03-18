@@ -95,3 +95,4 @@ func getSecret() {
 		}
 		decodedBinarySecret = string(decodedBinarySecretBytes[:len])
 	}
+}
