@@ -1,5 +1,2 @@
 test.*
 command-line-arguments
-go.mod
-push.sh
-go.sum
