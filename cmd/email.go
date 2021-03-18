@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/base64"
 	"fmt"
 	"net/smtp"
 
@@ -37,6 +36,7 @@ func sendEmail(body string, from string) error {
 // https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html
 
 func getSecret() string {
+	fmt.Println("1")
 	secretName := "smtppassword"
 	region := "us-east-2"
 
@@ -85,19 +85,12 @@ func getSecret() string {
 
 	// Decrypts secret using the associated KMS CMK.
 	// Depending on whether the secret is a string or binary, one of these fields will be populated.
-	var secretString, decodedBinarySecret string
+	var secretString string
 	if result.SecretString != nil {
 		secretString = *result.SecretString
-		return secretString
+		return string(secretString[17:(len(secretString) - 2)])
 	} else {
-		decodedBinarySecretBytes := make([]byte, base64.StdEncoding.DecodedLen(len(result.SecretBinary)))
-		len, err := base64.StdEncoding.Decode(decodedBinarySecretBytes, result.SecretBinary)
-		if err != nil {
-			fmt.Println("Base64 Decode Error:", err)
-			return "getSecret exited with error"
-		}
-		decodedBinarySecret = string(decodedBinarySecretBytes[:len])
+		fmt.Println("Error retrieving secret")
+		return "nil"
 	}
-	fmt.Println("Secret retrreved")
-	return string(decodedBinarySecret[17:(len(decodedBinarySecret) - 2)])
 }
