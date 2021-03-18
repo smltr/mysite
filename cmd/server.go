@@ -4,6 +4,8 @@ package main
 // "net"
 // "net/http"
 
+import "fmt"
+
 func main() {
 	// http.Handle("/", http.FileServer(http.Dir("site")))
 	// log.Println("Listening on port 80.....")
@@ -12,6 +14,6 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 	// log.Fatal(http.Serve(l, nil))
-
+	fmt.Println("Sending email....")
 	sendEmail("testing...", "john@doe.com")
 }

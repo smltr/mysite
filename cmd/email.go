@@ -12,6 +12,7 @@ import (
 )
 
 func sendEmail(body string, from string) error {
+	fmt.Println("Attempting to retrieve secret...")
 	password := getSecret()
 
 	// Set up authentication information.
@@ -97,6 +98,6 @@ func getSecret() string {
 		}
 		decodedBinarySecret = string(decodedBinarySecretBytes[:len])
 	}
-
+	fmt.Println("Secret retrreved")
 	return string(decodedBinarySecret[17:(len(decodedBinarySecret) - 2)])
 }
