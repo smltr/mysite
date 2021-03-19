@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 )
 
-func sendEmail(body string, from string) error {
+func sendEmail(name string, email string, message string) error {
 	fmt.Println("Attempting to retrieve secret...")
 	password, err := getSecret()
 	if err != nil {
@@ -27,9 +27,10 @@ func sendEmail(body string, from string) error {
 	// and send the email all in one step.
 	to := []string{"trouys16@gmail.com"}
 	msg := []byte("To: trouys16@gmail.com\r\n" +
-		"Subject: Message from" + from + "\r\n" +
+		"Subject: Message from " + name + "\r\n" +
+		"email: " + email +
 		"\r\n" +
-		body + "\r\n")
+		message + "\r\n")
 	err = smtp.SendMail("smtp.gmail.com:587", auth, "trouys16@gmail.com", to, msg)
 	if err != nil {
 		return err

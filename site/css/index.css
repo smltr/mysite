@@ -263,7 +263,7 @@ li {
 
 
 
-#footergrid {
+#message {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
     border-bottom: solid 2px rgba(255, 255, 255, 0.125);
@@ -316,13 +316,11 @@ li {
 
 }
 
-#messageSent {
-    color: rgb(0, 255, 0);
+#messageStatus {
     font-weight: 600;
+
 }
 
-#messageFailed {
-    color: #e22a11;
-    font-weight: 600;
-
+#sending {
+    display: none;
 }

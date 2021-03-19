@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,9 +17,9 @@ const (
 
 var CurrentStatus = Visit
 
-var MessageSent = "<p id='messageSent'>Message sent successfully</p>"
-
-var MessageFailed = "<p id='messageFailed'>Message failed to send. Please try again momentarily or copy this email address: trouys16@gmail.com</p>"
+var MessageSent = "<p id='messageStatus'>Message sent successfully</p>"
+var MessageFailed = "<p id='messageStatus'>Message failed to send. Please try again momentarily or click <a href='mailto:trouys16@gmail.com'>here</a>"
+var scroll = "<script>location.href = '#message'</script>"
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	switch CurrentStatus {
@@ -34,7 +35,12 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendHandler(w http.ResponseWriter, r *http.Request) {
-	err := sendEmail("body", "me")
+	err := r.ParseForm()
+	if err != nil {
+		fmt.Println(err)
+	}
+	name, email, message := r.Form.Get("name"), r.Form.Get("email"), r.Form.Get("message")
+	err = sendEmail(name, email, message)
 	if err != nil {
 		CurrentStatus = Failed
 	} else {
@@ -48,17 +54,31 @@ var t = template.Must(template.ParseFiles("./site/index.html"))
 func renderTemplate(w http.ResponseWriter, status Status) {
 	switch status {
 	case Visit:
-		err := t.ExecuteTemplate(w, "index.html", "")
+		err := t.ExecuteTemplate(w, "index.html", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	case Sent:
-		err := t.ExecuteTemplate(w, "index.html", template.HTML(MessageSent))
+		data := struct {
+			Message template.HTML
+			Scroll  template.HTML
+		}{
+			Message: template.HTML(MessageSent),
+			Scroll:  template.HTML(scroll),
+		}
+		err := t.ExecuteTemplate(w, "index.html", data)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	case Failed:
-		err := t.ExecuteTemplate(w, "index.html", template.HTML(MessageFailed))
+		data := struct {
+			Message template.HTML
+			Scroll  template.HTML
+		}{
+			Message: template.HTML(MessageFailed),
+			Scroll:  template.HTML(scroll),
+		}
+		err := t.ExecuteTemplate(w, "index.html", data)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -68,6 +88,7 @@ func renderTemplate(w http.ResponseWriter, status Status) {
 func main() {
 	fs := http.FileServer(http.Dir("site"))
 	http.Handle("/css/", fs)
+	http.Handle("/js/", fs)
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/send/", sendHandler)
 	log.Fatal(http.ListenAndServe(":80", nil))

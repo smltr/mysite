@@ -59,7 +59,7 @@
     </head>
 
     <body>
-        <div id=content>  
+        <div id="content">  
             <div class="section-left" id="header">
                 <div class="wrapper">
                     <h1>Sam Trouy</h1>
@@ -95,7 +95,7 @@
                         <div class="card">
                             <h3>This Site</h2>
                             <p>
-                                My personal site is built with HTML, CSS and Go. I have it running on an AWS EC2 instance. 
+                                My personal site is built with HTML, CSS, JS and Go. I have it running on an AWS EC2 instance. 
                                 The repository is set to automatically deploy to the EC2 instance on each git push.
                             </p>
                             <a href="https://github.com/smltr/mysite" >Repository</a>
@@ -137,28 +137,30 @@
                 <div class="wrapper">
                     <h2>Get In Touch</h2>
                     <p>If you have a project or are interested in hiring me, please reach out and send me a message.</p>
-                    <div id="footergrid">
-                        <form method="post" action="#">
+                    <div id="message">
+                        <form name="sendMessage" method="post" action="/send/" onsubmit="showSending()">
                             <div class="fields">
                                 <div class="field">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" id="name">
+                                    <input type="text" name="name" id="name" required>
                                 </div>
                                 <div class="field">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" id="email">
+                                    <input type="email" name="email" id="email" required>
                                 </div>
                                 <div class="field">
                                     <label for="message">Message</label>
-                                    <textarea name="message" id="message" rows="4"></textarea>
+                                    <textarea name="message" id="message" rows="4" required></textarea>
                                 </div>
                             </div>
-                            <input type="submit" value="Send Message"></li>
-                            {{.}}
+                            <input type="submit" value="Send Message">
+                            <p id="sending">Sending message...</p>
+                            {{.Message}}
                         </form>
                         <ul>
                             <li>Sam Trouy<br>Atlanta, GA, USA</li>
                             <li><a href="https://github.com/smltr" >github.com/smltr</a></li>
+                            <li><a href="https://www.linkedin.com/in/samuel-trouy-6679141b7/" >linkedin</a></li>
                         </ul>
                     </div>
                     <div id="copyright">
@@ -167,7 +169,8 @@
                 </div>
             </div>
         </div>
-    <script></script>
+        {{.Scroll}}
+        <script src="js/index.js"></script>
     </body>
 
 </html>
