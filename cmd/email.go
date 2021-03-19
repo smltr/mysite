@@ -14,7 +14,7 @@ import (
 )
 
 func sendEmail(name string, email string, message string) error {
-	fmt.Println("Attempting to retrieve secret...")
+	fmt.Println("Sending email...")
 	password, err := getSecret()
 	if err != nil {
 		return err
@@ -29,12 +29,12 @@ func sendEmail(name string, email string, message string) error {
 	msg := []byte("To: trouys16@gmail.com\r\n" +
 		"Subject: Message from " + name + "\r\n" +
 		"email: " + email +
-		"\r\n" +
 		message + "\r\n")
 	err = smtp.SendMail("smtp.gmail.com:587", auth, "trouys16@gmail.com", to, msg)
 	if err != nil {
 		return err
 	}
+	fmt.Println("Email sent.")
 	return nil
 }
 
@@ -43,7 +43,6 @@ func sendEmail(name string, email string, message string) error {
 // https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html
 
 func getSecret() (string, error) {
-	fmt.Println("1")
 	secretName := "smtppassword"
 	region := "us-east-2"
 

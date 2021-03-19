@@ -86,6 +86,7 @@ func renderTemplate(w http.ResponseWriter, status Status) {
 }
 
 func main() {
+	fmt.Println("Listening on port 80...")
 	fs := http.FileServer(http.Dir("site"))
 	http.Handle("/css/", fs)
 	http.Handle("/js/", fs)
