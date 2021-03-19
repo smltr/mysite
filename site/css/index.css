@@ -314,5 +314,15 @@ li {
         margin-top: 0;
     }
 
+}
+
+#messageSent {
+    color: rgb(0, 255, 0);
+    font-weight: 600;
+}
+
+#messageFailed {
+    color: #e22a11;
+    font-weight: 600;
 
 }

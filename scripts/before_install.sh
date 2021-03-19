@@ -1,4 +1,6 @@
 #!/bin/bash
+#If there is a terminal open running server, kill terminal
+#then remove current site directory if it exists
 cd /home/ubuntu
 echo "Deleting site session..."
 if tmux ls | grep -q mysite-session;

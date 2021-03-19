@@ -1,8 +1,11 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/smtp"
+
+	//"net/smtp"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -12,7 +15,10 @@ import (
 
 func sendEmail(body string, from string) error {
 	fmt.Println("Attempting to retrieve secret...")
-	password := getSecret()
+	password, err := getSecret()
+	if err != nil {
+		return err
+	}
 
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", "trouys16@gmail.com", password, "smtp.gmail.com")
@@ -24,7 +30,7 @@ func sendEmail(body string, from string) error {
 		"Subject: Message from" + from + "\r\n" +
 		"\r\n" +
 		body + "\r\n")
-	err := smtp.SendMail("smtp.gmail.com:587", auth, "trouys16@gmail.com", to, msg)
+	err = smtp.SendMail("smtp.gmail.com:587", auth, "trouys16@gmail.com", to, msg)
 	if err != nil {
 		return err
 	}
@@ -35,7 +41,7 @@ func sendEmail(body string, from string) error {
 // If you need more information about configurations or implementing the sample code, visit the AWS docs:
 // https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html
 
-func getSecret() string {
+func getSecret() (string, error) {
 	fmt.Println("1")
 	secretName := "smtppassword"
 	region := "us-east-2"
@@ -57,30 +63,29 @@ func getSecret() string {
 			switch aerr.Code() {
 			case secretsmanager.ErrCodeDecryptionFailure:
 				// Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-				fmt.Println(secretsmanager.ErrCodeDecryptionFailure, aerr.Error())
+				return "", errors.New("ecryption failure")
 
 			case secretsmanager.ErrCodeInternalServiceError:
 				// An error occurred on the server side.
-				fmt.Println(secretsmanager.ErrCodeInternalServiceError, aerr.Error())
+				return "", errors.New("internal service error")
 
 			case secretsmanager.ErrCodeInvalidParameterException:
 				// You provided an invalid value for a parameter.
-				fmt.Println(secretsmanager.ErrCodeInvalidParameterException, aerr.Error())
+				return "", errors.New("invalid parameter exception")
 
 			case secretsmanager.ErrCodeInvalidRequestException:
 				// You provided a parameter value that is not valid for the current state of the resource.
-				fmt.Println(secretsmanager.ErrCodeInvalidRequestException, aerr.Error())
+				return "", errors.New("invalid request exception")
 
 			case secretsmanager.ErrCodeResourceNotFoundException:
 				// We can't find the resource that you asked for.
-				fmt.Println(secretsmanager.ErrCodeResourceNotFoundException, aerr.Error())
+				return "", errors.New("resource not found exception")
 			}
 		} else {
 			// Print the error, cast err to awserr.Error to get the Code and
 			// Message from an error.
-			fmt.Println(err.Error())
+			return "", errors.New(err.Error())
 		}
-		return "getSecret exited with error"
 	}
 
 	// Decrypts secret using the associated KMS CMK.
@@ -88,9 +93,8 @@ func getSecret() string {
 	var secretString string
 	if result.SecretString != nil {
 		secretString = *result.SecretString
-		return string(secretString[17:(len(secretString) - 2)])
+		return string(secretString[17:(len(secretString) - 2)]), nil
 	} else {
-		fmt.Println("Error retrieving secret")
-		return "nil"
+		return "", errors.New("error decrypting secret")
 	}
 }
