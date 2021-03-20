@@ -86,11 +86,11 @@ func renderTemplate(w http.ResponseWriter, status Status) {
 }
 
 func main() {
-	fmt.Println("Listening on port 80...")
+	fmt.Println("Listening on port 443...")
 	fs := http.FileServer(http.Dir("site"))
 	http.Handle("/css/", fs)
 	http.Handle("/js/", fs)
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/send/", sendHandler)
-	log.Fatal(http.ListenAndServe(":80", nil))
+	log.Fatal(http.ListenAndServeTLS(":443", "/home/ubuntu/pem/samtrouy.com.pem", "/home/ubuntu/pem/private.key.pem", nil))
 }
