@@ -24,7 +24,7 @@ var scroll = "<script>location.href = '#message'</script>"
 // func redirect handles non secure requests and 
 // redirects to https
 func redirect(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://samtrouy.com", http.StatusMovedPermanently)
+	http.Redirect(w, r, "https://samtrouy.com:443", http.StatusMovedPermanently)
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
