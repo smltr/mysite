@@ -24,7 +24,7 @@ var scroll = "<script>location.href = '#message'</script>"
 // func redirect handles non secure requests and 
 // redirects to https
 func redirect(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, ":443", http.StatusMovedPermanently)
+	http.Redirect(w, r, "https://samtrouy.com", http.StatusMovedPermanently)
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -99,14 +99,9 @@ func main() {
 	http.Handle("/js/", fs)
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/send/", sendHandler)
-	fmt.Println("Listening on port 443...")
 	fmt.Println("Listening on port 80...")
-	http.HandleFunc(":80", redirect)
+	fmt.Println("Listening on port 443...")
 
-	go func() {
-		log.Fatal(http.ListenAndServeTLS(":443", "/home/ubuntu/pem/samtrouy.com.pem", "/home/ubuntu/pem/private.key.pem", nil))
-	}()
-
-	log.Fatal(http.ListenAndServe(":80", nil))
-	
+	go log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirect)))
+	log.Fatal(http.ListenAndServeTLS(":443", "/home/ubuntu/pem/samtrouy.com.pem", "/home/ubuntu/pem/private.key.pem", nil))
 }
