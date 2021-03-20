@@ -21,6 +21,12 @@ var MessageSent = "<p id='messageStatus'>Message sent successfully</p>"
 var MessageFailed = "<p id='messageStatus'>Message failed to send. Please try again momentarily or click <a href='mailto:trouys16@gmail.com'>here</a>"
 var scroll = "<script>location.href = '#message'</script>"
 
+// func redirect handles non secure requests and 
+// redirects to https
+func redirect(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, ":443", http.StatusMovedPermanently)
+}
+
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	switch CurrentStatus {
 	case Visit:
@@ -86,11 +92,21 @@ func renderTemplate(w http.ResponseWriter, status Status) {
 }
 
 func main() {
-	fmt.Println("Listening on port 443...")
+
+	
 	fs := http.FileServer(http.Dir("site"))
 	http.Handle("/css/", fs)
 	http.Handle("/js/", fs)
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/send/", sendHandler)
-	log.Fatal(http.ListenAndServeTLS(":443", "/home/ubuntu/pem/samtrouy.com.pem", "/home/ubuntu/pem/private.key.pem", nil))
+	fmt.Println("Listening on port 443...")
+	fmt.Println("Listening on port 80...")
+	http.HandleFunc(":80", redirect)
+
+	go func() {
+		log.Fatal(http.ListenAndServeTLS(":443", "/home/ubuntu/pem/samtrouy.com.pem", "/home/ubuntu/pem/private.key.pem", nil))
+	}()
+
+	log.Fatal(http.ListenAndServe(":80", nil))
+	
 }
