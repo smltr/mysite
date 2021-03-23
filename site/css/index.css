@@ -225,7 +225,7 @@ label {
 input, textarea {
     background: rgba(255, 255, 255, 0.025);
     border-radius: 5px;
-    border: solid 2px rgba(255, 255, 255, 0.125);
+    border: 2px solid rgba(255, 255, 255, 0.125);
     color: inherit;
     display: block;
     outline: 0;
@@ -248,10 +248,11 @@ textarea {
     height: 2.75em;
     height: 9em;
     margin-bottom: 2em;
+    resize: none;
 }
 
 input:focus, textarea:focus {
-    border: solid 2px rgb(72, 90, 172);
+    border: 2px solid rgb(72, 90, 172);
 
 }
 
@@ -260,8 +261,6 @@ li {
     margin: 0 0 2em;
     list-style-type: none;
 }
-
-
 
 #message {
     display: grid;
