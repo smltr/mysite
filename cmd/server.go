@@ -47,8 +47,8 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	name, email, message := r.Form.Get("name"), r.Form.Get("email"), r.Form.Get("messagebody")
-	err = sendEmail(name, email, message)
+	// name, email, message := r.Form.Get("name"), r.Form.Get("email"), r.Form.Get("messagebody")
+	// err = sendEmail(name, email, message)
 	if err != nil {
 		CurrentStatus = Failed
 	} else {
